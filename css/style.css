@@ -51,15 +51,18 @@ main {
     transform: rotateY(180deg);
   }
 
-  /*.card:hover .back-face {
-    transform: rotateY(0deg);
-  }
+img {
+  width: 100px;
+  height: 100px;
+}
 
-  .card:hover .front-face {
-    transform: rotateY(-180deg);
-  }*/
-
-  img {
-      width: 100px;
-      height: 100px;
-  }
+.relogio {
+  border: 1px solid black;
+  background-color: #A7E9AF;
+  color: #75B79E;
+  padding: 2px;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 10%;
+  margin: 10px auto;
+}

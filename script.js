@@ -9,9 +9,12 @@ let baralho = [];
 let cartasAbertas = [];
 let gifsAbertos = [];
 let pontuacao = 0;
+let jogadas = 0;
+let segundos = 0;
+let minutos = 0;
 
-// Adicionar o numero certo de cartas no baralho
-for (let i=0; i< numeroCarta/2; i++){
+
+for (let i=0; i< numeroCarta/2; i++){ // Adicionar o numero certo de cartas no baralho
     baralho.push('/imagens/'+(i+1)+'.gif');
     baralho.push('/imagens/'+(i+1)+'.gif');
     console.log(baralho[i]);
@@ -20,20 +23,22 @@ for (let i=0; i< numeroCarta/2; i++){
 baralho.sort(comparador); // Após esta linha,o baralho estará embaralhado
 console.log(baralho);
 
-// Função para randomizar o baralho
-function comparador() { 
+
+function comparador() { // Função para randomizar o baralho
 	return Math.random(baralho) - 0.5;
 }
 
-// Adicionar as cartas na tela
-const main = document.querySelector('main');
+const relogio = document.querySelector('.relogio'); // Adicionar o timer 
+const meuTimer = setInterval(timer, 1000);
+
+const main = document.querySelector('main'); // Adicionar as cartas na tela
 for (let j=0; j<numeroCarta; j++) {
     main.innerHTML += 
-    `<div class="card" onclick="virarCarta(this)">
-            <div class="front-face face">
-              <img src="imagens/front.png">
+    `<div class="card" onclick="virarCarta(this)" data-identifier="card">
+            <div class="front-face face" >
+              <img src="imagens/front.png" data-identifier="front-face">
             </div>
-            <div class="back-face face">
+            <div class="back-face face" data-identifier="back-face">
                 <img src="${baralho[j]}">
             </div>
     </div>`;
@@ -47,6 +52,7 @@ function virarCarta(carta) {
   let faceTraseira = carta.childNodes[3];
   faceFrontal.classList.add('back-face');
   faceTraseira.classList.remove('back-face');
+  jogadas++;
 
   //console.log(carta.childNodes[1]);
   //console.log(carta.childNodes[3]);
@@ -66,7 +72,7 @@ function retornaGif () {
     gif = backface.getAttribute("src");
     gifsAbertos.push(gif);
   }
-  console.log(gifsAbertos);
+  //console.log(gifsAbertos);
 }
 
 function compararCartas() {
@@ -78,7 +84,7 @@ function compararCartas() {
     setTimeout(desvirarCartas, 1000);
   }
   setTimeout(zerarSelecionados, 1000);
-  console.log(gifsAbertos);
+  //console.log(gifsAbertos);
   acabarJogo();
 }
 
@@ -98,7 +104,18 @@ function desvirarCartas() {
 
 function acabarJogo() {
   if (pontuacao === numeroCarta/2) {
-    alert("Parabens, voce venceu o jogo!");
+    alert(`Voce ganhou em ${jogadas} jogadas e em ${(minutos*60) + segundos} segundos`);
+    clearInterval(meuTimer);
   }
+}
+
+function timer () {
+  relogio.innerHTML = `${minutos}:${segundos}`;
+  segundos++;
+  if (segundos === 60) {
+    minutos++;
+    segundos = 0;
+  }
+  //console.log(segundos);
 }
 
