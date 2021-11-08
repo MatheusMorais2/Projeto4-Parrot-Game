@@ -105,7 +105,11 @@ function desvirarCartas() {
 function acabarJogo() {
   if (pontuacao === numeroCarta/2) {
     alert(`Voce ganhou em ${jogadas} jogadas e em ${(minutos*60) + segundos} segundos`);
+    let decisao = prompt(`Deseja jogar mais uma vez? (sim ou nao)`);
     clearInterval(meuTimer);
+    if (decisao === 'sim') {
+      window.location.reload();
+    }
   }
 }
 
